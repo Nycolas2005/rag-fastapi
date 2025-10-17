@@ -30,7 +30,7 @@ async def upsert_document(db, title: str, content: str) -> Dict[str, Any]:
         })
     if docs:
         await db["chunks"].insert_many(docs)
-    return {"doc_id": str(document_id), "chunks": len(docs)}
+    return {"documents_id": str(document_id), "chunks": len(docs)}
 
 
 async def search_similar_chunks(db, doc_id: str, query_embedding: List[float], k: int = 5) -> List[Dict[str, Any]]:
@@ -43,7 +43,7 @@ async def search_similar_chunks(db, doc_id: str, query_embedding: List[float], k
         oid = ObjectId(doc_id)
     except Exception:
         return []
-    doc = await db["documents"].find_one({"_id": oid})
+    doc = await db["document"].find_one({"_id": oid})
     if not doc:
         return []
     document_id: ObjectId = doc["_id"]

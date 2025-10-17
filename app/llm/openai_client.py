@@ -1,7 +1,9 @@
 import os
 from typing import List
 from openai import OpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
 CLIENT = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-large")
 CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini")
